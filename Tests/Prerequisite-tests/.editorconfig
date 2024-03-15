@@ -1,0 +1,3 @@
+# Suppress (suppress any rule you need to suppress)
+[*.cs]
+dotnet_diagnostic.SYSLIB0001.severity = none
