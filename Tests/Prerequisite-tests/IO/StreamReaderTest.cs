@@ -1,7 +1,5 @@
 using System.Text;
-#if !NETFRAMEWORK
 using TestHelpers.IO.Extensions;
-#endif
 
 namespace PrerequisiteTests.IO
 {
@@ -167,7 +165,6 @@ namespace PrerequisiteTests.IO
 			return Path.Combine(Global.ProjectDirectory.FullName, "Resources", "No-BOM", fileName);
 		}
 
-#if !NETFRAMEWORK
 		[Fact]
 		public async Task InternalFields_IfBomFile_And_IfDetectEncodingFromByteOrderMarks_Test()
 		{
@@ -198,8 +195,7 @@ namespace PrerequisiteTests.IO
 				Assert.Equal(0, characterPosition);
 			}
 		}
-#endif
-#if !NETFRAMEWORK
+
 		[Fact]
 		public async Task InternalFields_IfNoBomFile_And_IfDetectEncodingFromByteOrderMarks_Test()
 		{
@@ -230,7 +226,6 @@ namespace PrerequisiteTests.IO
 				Assert.Equal(0, characterPosition);
 			}
 		}
-#endif
 
 		#endregion
 	}

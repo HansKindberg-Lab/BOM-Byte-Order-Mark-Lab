@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Text;
+using Project.Extensions;
 
 namespace Project.Text.Extensions
 {
@@ -7,8 +8,10 @@ namespace Project.Text.Extensions
 	{
 		#region Fields
 
-		private static readonly FieldInfo _bigEndianField = typeof(UTF32Encoding).GetField(GetBigEndianFieldName(), BindingFlags.Instance | BindingFlags.NonPublic)!;
-		private static readonly FieldInfo _isThrowExceptionField = typeof(UTF32Encoding).GetField(GetIsThrowExceptionFieldName(), BindingFlags.Instance | BindingFlags.NonPublic)!;
+		private static readonly FieldInfo _bigEndianField = typeof(UTF32Encoding).GetPrivateInstanceField(_bigEndianFieldName);
+		private const string _bigEndianFieldName = "bigEndian";
+		private static readonly FieldInfo _isThrowExceptionField = typeof(UTF32Encoding).GetPrivateInstanceField(_isThrowExceptionFieldName);
+		private const string _isThrowExceptionFieldName = "isThrowException";
 
 		#endregion
 
@@ -19,31 +22,19 @@ namespace Project.Text.Extensions
 			if(utf32Encoding == null)
 				throw new ArgumentNullException(nameof(utf32Encoding));
 
+			if(_bigEndianField == null)
+				throw new NullReferenceException($"The \"{_bigEndianFieldName}\" field could not be found for version \"{Environment.Version}\".");
+
 			return (bool)_bigEndianField.GetValue(utf32Encoding);
-		}
-
-		private static string GetBigEndianFieldName()
-		{
-			const string fieldName = "bigEndian";
-
-			var entryAssembly = Assembly.GetEntryAssembly(); // Null when net462.
-
-			return entryAssembly == null ? fieldName : $"_{fieldName}";
-		}
-
-		private static string GetIsThrowExceptionFieldName()
-		{
-			const string fieldName = "isThrowException";
-
-			var entryAssembly = Assembly.GetEntryAssembly(); // Null when net462.
-
-			return entryAssembly == null ? fieldName : $"_{fieldName}";
 		}
 
 		public static bool ThrowOnInvalidBytes(this UTF32Encoding utf32Encoding)
 		{
 			if(utf32Encoding == null)
 				throw new ArgumentNullException(nameof(utf32Encoding));
+
+			if(_isThrowExceptionField == null)
+				throw new NullReferenceException($"The \"{_isThrowExceptionFieldName}\" field could not be found for version \"{Environment.Version}\".");
 
 			return (bool)_isThrowExceptionField.GetValue(utf32Encoding);
 		}
