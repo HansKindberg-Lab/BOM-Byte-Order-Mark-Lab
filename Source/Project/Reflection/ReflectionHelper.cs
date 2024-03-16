@@ -4,9 +4,9 @@ namespace Project.Reflection
 	{
 		#region Methods
 
-		public static string ResolveFieldName(string name)
+		public static string ResolveFieldName(string name, string dotNetCoreNamePrefix = "_")
 		{
-			var prefix = Environment.Version.Major == 4 ? string.Empty : "_";
+			var prefix = Environment.Version.Major == 4 ? string.Empty : dotNetCoreNamePrefix;
 
 			return $"{prefix}{name}";
 		}

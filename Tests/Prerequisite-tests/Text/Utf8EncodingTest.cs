@@ -8,6 +8,31 @@ namespace PrerequisiteTests.Text
 		#region Methods
 
 		[Fact]
+		public async Task Constructor_IfEncoderShouldEmitUtf8IdentifierIsFalse_ShouldResultInGetPreambleReturningAnEmptyArray()
+		{
+			await Task.CompletedTask;
+
+			var encoding = new UTF8Encoding(false);
+
+			Assert.Empty(encoding.GetPreamble());
+		}
+
+		[Fact]
+		public async Task Constructor_IfEncoderShouldEmitUtf8IdentifierIsTrue_ShouldResultInGetPreambleReturningThreeItems()
+		{
+			await Task.CompletedTask;
+
+			var encoding = new UTF8Encoding(true);
+
+			var preamble = encoding.GetPreamble();
+
+			Assert.Equal(3, preamble.Length);
+			Assert.Equal(239, preamble[0]);
+			Assert.Equal(187, preamble[1]);
+			Assert.Equal(191, preamble[2]);
+		}
+
+		[Fact]
 		public async Task Default_Constructor_GetPreamble_ShouldReturnAnEmptyArray()
 		{
 			await Task.CompletedTask;

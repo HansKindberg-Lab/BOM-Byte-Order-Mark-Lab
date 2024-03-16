@@ -53,7 +53,6 @@ namespace PrerequisiteTests.Text
 			var preamble = Encoding.UTF32.GetPreamble();
 
 			Assert.Equal(4, preamble.Length);
-			Assert.Equal(4, preamble.Length);
 			Assert.Equal(255, preamble[0]);
 			Assert.Equal(254, preamble[1]);
 			Assert.Equal(0, preamble[2]);
