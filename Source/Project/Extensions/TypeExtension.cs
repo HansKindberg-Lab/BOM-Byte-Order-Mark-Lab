@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using Project.Reflection;
 
 namespace Project.Extensions
@@ -12,7 +12,7 @@ namespace Project.Extensions
 			if(type == null)
 				throw new ArgumentNullException(nameof(type));
 
-			return type.GetField(ReflectionHelper.GetFieldName(name), BindingFlags.Instance | BindingFlags.NonPublic)!;
+			return type.GetField(ReflectionHelper.ResolveFieldName(name), BindingFlags.Instance | BindingFlags.NonPublic)!;
 		}
 
 		#endregion
