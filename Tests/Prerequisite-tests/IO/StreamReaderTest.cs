@@ -8,7 +8,7 @@ namespace PrerequisiteTests.IO
 		#region Methods
 
 		[Fact]
-		public async Task BaseStream_BomJson_IfDetectEncodingFromByteOrderMarksIsTrueInConstructor_Test()
+		public async Task BaseStream_BomJson_IfDetectEncodingFromByteOrderMarksIsTrue_Test()
 		{
 			await Task.CompletedTask;
 
@@ -28,7 +28,7 @@ namespace PrerequisiteTests.IO
 		}
 
 		[Fact]
-		public async Task BaseStream_IfBomFile_And_IfDetectEncodingFromByteOrderMarks_Test()
+		public async Task BaseStream_IfBomFile_And_IfDetectEncodingFromByteOrderMarksIsTrue_Test()
 		{
 			await Task.CompletedTask;
 
@@ -39,7 +39,7 @@ namespace PrerequisiteTests.IO
 		}
 
 		[Fact]
-		public async Task BaseStream_IfNoBomFile_And_IfDetectEncodingFromByteOrderMarks_Test()
+		public async Task BaseStream_IfNoBomFile_And_IfDetectEncodingFromByteOrderMarksIsTrue_Test()
 		{
 			await Task.CompletedTask;
 
@@ -50,7 +50,7 @@ namespace PrerequisiteTests.IO
 		}
 
 		[Fact]
-		public async Task BaseStream_NoBomJson_IfDetectEncodingFromByteOrderMarksIsTrueInConstructor_Test()
+		public async Task BaseStream_NoBomJson_IfDetectEncodingFromByteOrderMarksIsTrue_Test()
 		{
 			await Task.CompletedTask;
 
@@ -70,7 +70,7 @@ namespace PrerequisiteTests.IO
 		}
 
 		[Fact]
-		public async Task CurrentEncoding_BomJson_IfDetectEncodingFromByteOrderMarksIsFalseInConstructor_ShouldReturnUtf8()
+		public async Task CurrentEncoding_BomJson_IfDetectEncodingFromByteOrderMarksIsFalse_ShouldReturnUtf8()
 		{
 			await Task.CompletedTask;
 
@@ -86,7 +86,7 @@ namespace PrerequisiteTests.IO
 		}
 
 		[Fact]
-		public async Task CurrentEncoding_BomJson_IfDetectEncodingFromByteOrderMarksIsTrueInConstructor_ShouldReturnUtf8()
+		public async Task CurrentEncoding_BomJson_IfDetectEncodingFromByteOrderMarksIsTrue_ShouldReturnUtf8()
 		{
 			await Task.CompletedTask;
 
@@ -102,7 +102,7 @@ namespace PrerequisiteTests.IO
 		}
 
 		[Fact]
-		public async Task CurrentEncoding_NoBomJson_IfDetectEncodingFromByteOrderMarksIsFalseInConstructor_ShouldReturnUtf8()
+		public async Task CurrentEncoding_NoBomJson_IfDetectEncodingFromByteOrderMarksIsFalse_ShouldReturnUtf8()
 		{
 			await Task.CompletedTask;
 
@@ -118,7 +118,7 @@ namespace PrerequisiteTests.IO
 		}
 
 		[Fact]
-		public async Task CurrentEncoding_NoBomJson_IfDetectEncodingFromByteOrderMarksIsTrueInConstructor_ShouldReturnUtf8()
+		public async Task CurrentEncoding_NoBomJson_IfDetectEncodingFromByteOrderMarksIsTrue_ShouldReturnUtf8()
 		{
 			await Task.CompletedTask;
 
@@ -134,7 +134,7 @@ namespace PrerequisiteTests.IO
 		}
 
 		[Fact]
-		public async Task CurrentEncoding_Preamble_IfBomFile_And_IfDetectEncodingFromByteOrderMarks_Test()
+		public async Task CurrentEncoding_Preamble_IfBomFile_And_IfDetectEncodingFromByteOrderMarksIsTrue_Test()
 		{
 			await Task.CompletedTask;
 
@@ -145,7 +145,7 @@ namespace PrerequisiteTests.IO
 		}
 
 		[Fact]
-		public async Task CurrentEncoding_Preamble_IfNoBomFile_And_IfDetectEncodingFromByteOrderMarks_Test()
+		public async Task CurrentEncoding_Preamble_IfNoBomFile_And_IfDetectEncodingFromByteOrderMarksIsTrue_Test()
 		{
 			await Task.CompletedTask;
 
@@ -166,7 +166,7 @@ namespace PrerequisiteTests.IO
 		}
 
 		[Fact]
-		public async Task InternalFields_IfBomFile_And_IfDetectEncodingFromByteOrderMarks_Test()
+		public async Task InternalFields_IfBomFile_And_IfDetectEncodingFromByteOrderMarksIsTrue_Test()
 		{
 			await Task.CompletedTask;
 
@@ -197,7 +197,7 @@ namespace PrerequisiteTests.IO
 		}
 
 		[Fact]
-		public async Task InternalFields_IfNoBomFile_And_IfDetectEncodingFromByteOrderMarks_Test()
+		public async Task InternalFields_IfNoBomFile_And_IfDetectEncodingFromByteOrderMarksIsTrue_Test()
 		{
 			await Task.CompletedTask;
 
