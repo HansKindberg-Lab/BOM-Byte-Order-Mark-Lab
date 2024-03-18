@@ -1,4 +1,5 @@
 using System.Text;
+using Project.IO.Extensions;
 using TestHelpers.IO.Extensions;
 
 namespace PrerequisiteTests.IO
@@ -165,6 +166,11 @@ namespace PrerequisiteTests.IO
 			return Path.Combine(Global.ProjectDirectory.FullName, "Resources", "No-BOM", fileName);
 		}
 
+		private static string GetOutputFilePath(string fileName)
+		{
+			return Path.Combine(Global.OutputDirectory.FullName, fileName);
+		}
+
 		[Fact]
 		public async Task InternalFields_IfBomFile_And_IfDetectEncodingFromByteOrderMarksIsTrue_Test()
 		{
@@ -226,6 +232,107 @@ namespace PrerequisiteTests.IO
 				Assert.Equal(0, characterPosition);
 			}
 		}
+
+		[Fact]
+		public async Task ReadToEnd_AndWriteToFile_IfBomFile_And_IfDetectEncodingFromByteOrderMarksIsTrue_ShouldCreateAFileWithByteOrderMark()
+		{
+			await Task.CompletedTask;
+
+			var outputFilePath = GetOutputFilePath($"{Guid.NewGuid()}.json");
+
+			using(var streamReader = new StreamReader(GetBomFilePath("bom.json"), detectEncodingFromByteOrderMarks: true))
+			{
+				// ReSharper disable MethodHasAsyncOverload
+
+				var content = streamReader.ReadToEnd();
+
+				Directory.CreateDirectory(new FileInfo(outputFilePath).Directory!.FullName);
+
+				File.WriteAllText(outputFilePath, content, streamReader.CurrentEncoding);
+
+				// ReSharper restore MethodHasAsyncOverload
+			}
+
+			using(var streamReader = new StreamReader(outputFilePath, detectEncodingFromByteOrderMarks: true))
+			{
+				Assert.True(streamReader.HasByteOrderMark());
+			}
+		}
+
+		/// <summary>
+		/// This is why we have to do something. If the source-file has no BOM I would like the written file to have no BOM also.
+		/// </summary>
+		[Fact]
+		public async Task ReadToEnd_AndWriteToFile_IfNoBomFile_And_IfDetectEncodingFromByteOrderMarksIsTrue_ShouldCreateAFileWithByteOrderMark()
+		{
+			await Task.CompletedTask;
+
+			var outputFilePath = GetOutputFilePath($"{Guid.NewGuid()}.json");
+
+			using(var streamReader = new StreamReader(GetNoBomFilePath("no-bom.json"), detectEncodingFromByteOrderMarks: true))
+			{
+				// ReSharper disable MethodHasAsyncOverload
+
+				var content = streamReader.ReadToEnd();
+
+				Directory.CreateDirectory(new FileInfo(outputFilePath).Directory!.FullName);
+
+				File.WriteAllText(outputFilePath, content, streamReader.CurrentEncoding);
+
+				// ReSharper restore MethodHasAsyncOverload
+			}
+
+			using(var streamReader = new StreamReader(outputFilePath, detectEncodingFromByteOrderMarks: true))
+			{
+				Assert.True(streamReader.HasByteOrderMark());
+			}
+		}
+
+#if NETCOREAPP3_1_OR_GREATER
+		[Fact]
+		public async Task ReadToEndAsync_AndWriteToFileAsync_IfBomFile_And_IfDetectEncodingFromByteOrderMarksIsTrue_ShouldCreateAFileWithByteOrderMark()
+		{
+			var outputFilePath = GetOutputFilePath($"{Guid.NewGuid()}.json");
+
+			using(var streamReader = new StreamReader(GetBomFilePath("bom.json"), detectEncodingFromByteOrderMarks: true))
+			{
+				var content = await streamReader.ReadToEndAsync();
+
+				Directory.CreateDirectory(new FileInfo(outputFilePath).Directory!.FullName);
+
+				await File.WriteAllTextAsync(outputFilePath, content, streamReader.CurrentEncoding);
+			}
+
+			using(var streamReader = new StreamReader(outputFilePath, detectEncodingFromByteOrderMarks: true))
+			{
+				Assert.True(streamReader.HasByteOrderMark());
+			}
+		}
+#endif
+#if NETCOREAPP3_1_OR_GREATER
+		/// <summary>
+		/// This is why we have to do something. If the source-file has no BOM I would like the written file to have no BOM also.
+		/// </summary>
+		[Fact]
+		public async Task ReadToEndAsync_AndWriteToFileAsync_IfNoBomFile_And_IfDetectEncodingFromByteOrderMarksIsTrue_ShouldCreateAFileWithByteOrderMark()
+		{
+			var outputFilePath = GetOutputFilePath($"{Guid.NewGuid()}.json");
+
+			using(var streamReader = new StreamReader(GetNoBomFilePath("no-bom.json"), detectEncodingFromByteOrderMarks: true))
+			{
+				var content = await streamReader.ReadToEndAsync();
+
+				Directory.CreateDirectory(new FileInfo(outputFilePath).Directory!.FullName);
+
+				await File.WriteAllTextAsync(outputFilePath, content, streamReader.CurrentEncoding);
+			}
+
+			using(var streamReader = new StreamReader(outputFilePath, detectEncodingFromByteOrderMarks: true))
+			{
+				Assert.True(streamReader.HasByteOrderMark());
+			}
+		}
+#endif
 
 		#endregion
 	}

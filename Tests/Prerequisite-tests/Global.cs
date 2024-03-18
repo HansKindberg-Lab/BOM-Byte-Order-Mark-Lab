@@ -4,6 +4,7 @@ namespace PrerequisiteTests
 	{
 		#region Fields
 
+		public static DirectoryInfo OutputDirectory = new(Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, "Test-output"));
 		public static DirectoryInfo ProjectDirectory = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory).Parent!.Parent!.Parent!;
 
 		#endregion
